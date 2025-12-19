@@ -51,11 +51,12 @@ users.push(divya)
 console.log(users)
 
 function addUserCardToDOM(user){
-    //get the card container element from the DOM
-    const cardContainer = document.getElementById("card-container");
-
+    // //get the card container element from the DOM
+    // const cardContainer = document.getElementById("card-container");
+       const $cardContainer =$("#card-container");
     //append a new user card to the card container
-    cardContainer.innerHTML += `<div class="card">
+    // cardContainer.innerHTML += `<div class="card">
+    let $cardHtml = `<div class="card">
             <div class="left-info" style="--background-color: ${user.color}">
                 <div class="center-horizontally">
                     <p id="user-level">Level ${user.level}</p>
@@ -88,6 +89,7 @@ function addUserCardToDOM(user){
             </div>
         </div>`
 }
+ $cardContainer.append($cardHtml);
 
 renderUsersToDom(users)
 
@@ -116,11 +118,27 @@ function incrementPoints(userName){
     //increase the point
     user.points += 1;
     //update the point on the screen/dom
-    const pointLabel = document.getElementById(`user-points-${user.name}`);
-
-    pointLabel.textContent = `${user.points} points`;
+    // const pointLabel = document.getElementById(`user-points-${user.name}`);
+    const $pointLabel = $(`user-points-${user.name}`)
+    // pointLabel.textContent = `${user.points} points`;
+    $pointlabel.text(`{$user.points} points`)
 
 }
 
 //decrement
 //calculate the total point for everybody
+
+function decrementPoints(userName) {
+    // find the user in the array
+    const user = users.find((user) => user.name === userName);
+    console.log(user);
+
+    // decrease the point 
+    if (user.points > 0) {
+        user.points -= 1;
+    }
+
+    // update the point on the screen/dom
+    const pointLabel = document.getElementById(`user-points-${user.name}`);
+    pointLabel.textContent = `${user.points} points`;
+}
